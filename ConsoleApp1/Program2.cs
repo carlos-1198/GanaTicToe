@@ -1,48 +1,50 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace ConsoleApp1
 {
-    class Program
+    class Program2
     {
+        int fila = 0;
+        int columna = 0;
         static void Main(string[] args)
         {
-            Program p = new Program();
+            Program2 p = new Program2();
             string[,] tablero = new string[3, 3];
             int turno = 0;
-            int fila = 0;
-            int columna = 0;
+            int casilla = 0;
             string actual = "";
             do
             {
-                Console.Write("Digite la fila que desea marcar");
-                fila = Convert.ToInt32(Console.ReadLine());
-                Console.Write("Digite la columna que desea marcar");
-                columna = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Digite la casilla que desea marcar");
+                casilla = Convert.ToInt32(Console.ReadLine());
+                p.ColumnaFila(casilla);
                 if (turno % 2 == 0)
                 {
-                    tablero[fila, columna] = "x";
+                    tablero[p.fila, p.columna] = "x";
                     actual = "X";
                 }
                 else
                 {
-                    tablero[fila, columna] = "o";
+                    tablero[p.fila, p.columna] = "o";
                     actual = "o";
                 }
 
                 if (turno >= 4)
                 {
 
-                    if (p.ganoHorizontal(tablero))
+                    if (p.GanoHorizontal(tablero))
                     {
                         Console.WriteLine("gano {0}", actual);
                         break;
                     }
-                    else if (p.ganoVertical(tablero))
+                    else if (p.GanoVertical(tablero))
                     {
                         Console.WriteLine("gano {0}", actual);
                         break;
                     }
-                    else if (p.ganoDiagonal(tablero))
+                    else if (p.GanoDiagonal(tablero))
                     {
                         Console.WriteLine("gano {0}", actual);
                         break;
@@ -58,8 +60,50 @@ namespace ConsoleApp1
 
         }
 
+        public void ColumnaFila(int x)
+        {
+            switch (x)
+            {
+                case 1:
+                    this.fila = 0;
+                    this.columna = 0;
+                    break;
+                case 2:
+                    this.fila = 0;
+                    this.columna = 1;
+                    break;
+                case 3:
+                    this.fila = 0;
+                    this.columna = 2;
+                    break;
+                case 4:
+                    this.fila = 1;
+                    this.columna = 0;
+                    break;
+                case 5:
+                    this.fila = 1;
+                    this.columna = 1;
+                    break;
+                case 6:
+                    this.fila = 1;
+                    this.columna = 2;
+                    break;
+                case 7:
+                    this.fila = 2;
+                    this.columna = 0;
+                    break;
+                case 8:
+                    this.fila = 2;
+                    this.columna = 1;
+                    break;
+                case 9:
+                    this.fila = 2;
+                    this.columna = 2;
+                    break;
+            }
+        }
 
-        public bool ganoHorizontal(string[,] a)
+        public bool GanoHorizontal(string[,] a)
         {
             int i = 0;
             int j = 0;
@@ -78,7 +122,7 @@ namespace ConsoleApp1
             return false;
         }
 
-        public bool ganoVertical(string[,] a)
+        public bool GanoVertical(string[,] a)
         {
             int i = 0;
             int j = 0;
@@ -97,7 +141,7 @@ namespace ConsoleApp1
             return false;
         }
 
-        public bool ganoDiagonal(string[,] a)
+        public bool GanoDiagonal(string[,] a)
         {
             if (a[0, 0] != null && a[1, 1] != null && a[2, 2] != null)
             {
@@ -109,7 +153,7 @@ namespace ConsoleApp1
 
             else if (a[2, 0] != null && a[1, 1] != null && a[0, 2] != null)
             {
-                if ((a[0, 2] == a[1, 1]) && (a[2, 0] == a[0, 0]))
+                if ((a[0, 2] == a[1, 1]) && (a[2, 0] == a[1, 1]))
                 {
                     return true;
                 }
@@ -118,4 +162,3 @@ namespace ConsoleApp1
         }
     }
 }
-
